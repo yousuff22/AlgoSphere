@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
+import VoiceChat from "./components/VoiceChat";
 
 const socket = io("http://localhost:3000");
 
@@ -14,6 +15,7 @@ const App = () => {
   const [copySuccess, setCopySuccess] = useState("");
   const [users, setUsers] = useState([]);
   const [typing, setTyping] = useState("");
+  const [showVoiceChat, setShowVoiceChat] = useState(false);
 
   useEffect(() => {
     socket.on("userJoined", (users) => {
@@ -67,6 +69,7 @@ const App = () => {
     setUserName("");
     setCode("function solve() {}");
     setLanguage("javascript");
+    setShowVoiceChat(false);
   };
 
   const copyRoomId = () => {
@@ -122,6 +125,7 @@ const App = () => {
           </button>
           {copySuccess && <span className="copy-success">{copySuccess}</span>}
         </div>
+
         <h3>Users in Room: </h3>
         <ul>
           {users.map((user, index) => (
@@ -129,6 +133,7 @@ const App = () => {
           ))}
         </ul>
         <p className="typing-indicator">{typing}</p>
+
         <select
           className="language-selector"
           value={language}
@@ -139,6 +144,21 @@ const App = () => {
           <option value="cpp">C++</option>
           <option value="python">Python</option>
         </select>
+
+        {/* Voice Chat Toggle Button */}
+        <button 
+          className={`voice-toggle-btn ${showVoiceChat ? 'active' : ''}`}
+          onClick={() => setShowVoiceChat(!showVoiceChat)}
+        >
+          {showVoiceChat ? '🔇 Hide Voice' : '🎤 Voice Chat'}
+        </button>
+
+        {/* Voice Chat Component */}
+        <VoiceChat 
+          roomId={roomId}
+          userName={userName}
+          isVisible={showVoiceChat}
+        />
 
         <button className="leave-button" onClick={leaveRoom}>
           Leave Room
