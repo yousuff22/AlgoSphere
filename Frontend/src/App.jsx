@@ -91,22 +91,22 @@ const App = () => {
     return (
       <div className="join-container">
         <div className="join-form">
-          <h1>Join Code Room</h1>
+          <h1>Solve DSA Together</h1>
+
           <input
             type="text"
-            placeholder="Room Id"
+            placeholder="👤 Your Name"
+            value={userName}
+            onChange={(e) => setUserName(e.target.value)}
+          />
+          <input
+            type="text"
+            placeholder="🔑 Room Id"
             value={roomId}
             onChange={(e) => setRoomId(e.target.value)}
           />
 
-          <input
-            type="text"
-            placeholder="Your Name"
-            value={userName}
-            onChange={(e) => setUserName(e.target.value)}
-          />
-
-          <button onClick={joinRoom}>Join Room</button>
+          <button onClick={joinRoom}>🚀 Start Coding</button>
         </div>
       </div>
     );

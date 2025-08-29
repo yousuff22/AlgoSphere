@@ -6,8 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js",
-    "dev": "nodemon index.js",
-    "build": "cd Frontend && npm install && npm run build"
+    "build-frontend": "cd ../frontend && npm run build && cp -r dist/* ../backend/public/",
+    "dev": "npm run build-frontend && npm start",
+    "update-frontend": "cd ../Frontend && npm run build && cp -r dist/* ../Backend/public/"
   },
   "keywords": [],
   "author": "",

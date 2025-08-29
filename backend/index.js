@@ -4,7 +4,6 @@ import { Server } from "socket.io";
 import path from "path";
 
 const app = express();
-
 const server = http.createServer(app);
 
 const io = new Server(server, {
@@ -15,6 +14,7 @@ const io = new Server(server, {
 
 const rooms = new Map();
 
+// All your existing socket.io code
 io.on("connection", (socket) => {
   console.log("Client Connected:", socket.id);
 
@@ -77,15 +77,24 @@ io.on("connection", (socket) => {
 });
 
 const port = 3000;
+const __dirname = path.resolve();
 
-// const __dirname = path.resolve();
+// API routes (if you have any)
+// app.use('/api', yourApiRoutes);
 
-// app.use(express.static(path.join(__dirname, "/Frontend/dist")));
+// Serve static files from public directory
+app.use(express.static(path.join(__dirname, "public")));
 
-// app.get("*", (req, res) => {
-//   res.sendFile(path.join(__dirname, "Frontend", "dist", "index.html"));
-// });
+// Handle React Router - serve index.html for all non-API routes
+app.get("/", (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
+
+// Catch-all handler: send back React's index.html file for client-side routing
+app.get(/^(?!\/api).*$/, (req, res) => {
+  res.sendFile(path.join(__dirname, "public", "index.html"));
+});
 
 server.listen(port, () => {
-  console.log("server is running on port", port);
+  console.log(`Server running on http://localhost:${port}`);
 });
