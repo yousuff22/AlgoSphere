@@ -95,6 +95,6 @@ app.get(/^(?!\/api).*$/, (req, res) => {
   res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-server.listen(port, () => {
+server.listen(port, "0.0.0.0",() => {
   console.log(`Server running on http://localhost:${port}`);
 });
