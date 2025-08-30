@@ -4,7 +4,10 @@ import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 import VoiceChat from "./components/VoiceChat";
 
-const socket = io(window.location.hostname + ":3000");
+const socket = io("http://143.244.136.204:3000", {
+  transports: ["websocket", "polling"],
+});
+
 
 const App = () => {
   const [joined, setJoined] = useState(false);
