@@ -4,7 +4,7 @@ import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 import VoiceChat from "./components/VoiceChat";
 
-const socket = io("http://localhost:3000");
+const socket = io(window.location.hostname + ":3000");
 
 const App = () => {
   const [joined, setJoined] = useState(false);
@@ -146,15 +146,15 @@ const App = () => {
         </select>
 
         {/* Voice Chat Toggle Button */}
-        <button 
-          className={`voice-toggle-btn ${showVoiceChat ? 'active' : ''}`}
+        <button
+          className={`voice-toggle-btn ${showVoiceChat ? "active" : ""}`}
           onClick={() => setShowVoiceChat(!showVoiceChat)}
         >
-          {showVoiceChat ? '🔇 Hide Voice' : '🎤 Voice Chat'}
+          {showVoiceChat ? "🔇 Hide Voice" : "🎤 Voice Chat"}
         </button>
 
         {/* Voice Chat Component */}
-        <VoiceChat 
+        <VoiceChat
           roomId={roomId}
           userName={userName}
           isVisible={showVoiceChat}
