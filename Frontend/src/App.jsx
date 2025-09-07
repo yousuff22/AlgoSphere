@@ -4,10 +4,17 @@ import io from "socket.io-client";
 import Editor from "@monaco-editor/react";
 import VoiceChat from "./components/VoiceChat";
 
-const socket = io("http://143.244.136.204:3000");
+// Updated to use HTTPS/WSS - this will automatically use the correct protocol
+const socket = io("https://thinktogether.tech", {
+  transports: ["websocket", "polling"],
+  secure: true,
+  rejectUnauthorized: false // Add this if you're using self-signed certificates
+});
 
-// const socket = io("http://143.244.136.204:3000", {
+// Alternative auto-detection approach (even better):
+// const socket = io({
 //   transports: ["websocket", "polling"],
+//   secure: window.location.protocol === 'https:'
 // });
 
 const App = () => {
