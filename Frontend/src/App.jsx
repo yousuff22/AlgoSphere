@@ -8,7 +8,6 @@ import VoiceChat from "./components/VoiceChat";
 const socket = io("https://thinktogether.tech", {
   transports: ["websocket", "polling"],
   secure: true,
-  rejectUnauthorized: false // Add this if you're using self-signed certificates
 });
 
 // Alternative auto-detection approach (even better):
